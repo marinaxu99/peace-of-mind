@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reflect — Peace Of Mind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/reflect.css" />
+</head>
+
+<body>
+    <!-- Soft background -->
+    <div class="bg">
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="grain"></div>
+    </div>
+
+    <header class="topbar" role="navigation" aria-label="Primary">
+        <a class="logo" href="index.html">☁️ Peace Of Mind</a>
+        <nav>
+            <a href="support.html">Support</a>
+            <a href="reflect.html" aria-current="page">Reflect</a>
+        </nav>
+    </header>
+
+    <main class="layout">
+        <!-- Left: Section chooser -->
+        <aside class="menu" aria-label="Reflect tools">
+            <h2 class="menu-title">Reflect</h2>
+            <button class="menu-btn" data-route="worry">Worry Window</button>
+            <button class="menu-btn" data-route="triage">Conversation Triage</button>
+            <button class="menu-btn" data-route="mood">Mood-Check Diary</button>
+            <button class="menu-btn" data-route="archive">Archive / Review</button>
+            <hr class="sep">
+            <a class="menu-link subtle" href="index.html">← Home</a>
+        </aside>
+
+        <!-- Center: Routed main panel -->
+        <section class="panel" id="routerOutlet" aria-live="polite" aria-busy="false">
+            <div class="placeholder">
+                <h1 class="page-title">Reflect</h1>
+                <p class="page-subtitle">Review, process, and learn from your day.</p>
+                <div class="choices">
+                    <button class="choice" data-route="worry"><span class="icon">🗂️</span><span
+                            class="txt"><strong>Worry Window</strong><em>sort: important / let go</em></span><span
+                            class="arrow">→</span></button>
+                    <button class="choice" data-route="triage"><span class="icon">🧭</span><span
+                            class="txt"><strong>Conversation Triage</strong><em>3 facts • 1 thought • 1 next
+                                step</em></span><span class="arrow">→</span></button>
+                    <button class="choice" data-route="mood"><span class="icon">📈</span><span
+                            class="txt"><strong>Mood-Check Diary</strong><em>energy before → after</em></span><span
+                            class="arrow">→</span></button>
+                    <button class="choice" data-route="archive"><span class="icon">🗃️</span><span
+                            class="txt"><strong>Archive</strong><em>browse your entries</em></span><span
+                            class="arrow">→</span></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Worry Widget -->
+    <button id="worryFab" class="fab" aria-label="Open Worry Inbox" aria-expanded="false">
+        <span>✎</span>
+        <em id="worryBadge" class="badge" aria-hidden="true">0</em>
+    </button>
+
+    <section id="worryChat" class="chat" aria-label="Worry Inbox" aria-hidden="true">
+        <header class="chat-head">
+            <h3>Worry Inbox</h3>
+            <div class="chat-actions">
+                <button id="worryClearAll" class="btn tiny ghost" title="Clear all">Clear</button>
+                <button id="worryClose" class="btn tiny ghost" title="Close">✕</button>
+            </div>
+        </header>
+        <p class="muted small chat-note">Jot thoughts anytime; review them during your window.</p>
+        <div class="inbox">
+            <input id="worryInput" type="text" placeholder="Type a worry and press Enter or + Add"
+                aria-label="Enter worry" />
+            <button id="addWorry" class="btn tiny">+ Add</button>
+        </div>
+        <ul id="worryList" class="list compact" aria-live="polite"></ul>
+        <footer class="chat-foot">
+            <span id="worryCount" class="muted">0 saved</span>
+            <a class="btn ghost small" href="#worry">Worry Window →</a>
+        </footer>
+    </section>
+
+    <footer class="footer">
+        <small>Data stays in your browser (localStorage).</small>
+    </footer>
+
+    <script src="js/reflect.js"></script>
+</body>
+
+</html>

@@ -2,20 +2,71 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emotional Support Hub</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Peace Of Mind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Humanist + rounded feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
-    <main class="container">
-        <h1 class="title">Emotional Support Hub</h1>
-        <p class="subtitle">What do you need right now?</p>
-        <div class="button-group">
-            <button class="choice-btn" id="supportBtn">Support</button>
-            <button class="choice-btn" id="reflectBtn">Reflect</button>
-        </div>
+    <!-- Decorative background shapes -->
+    <div class="bg">
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="grain"></div>
+    </div>
+
+    <header class="topbar" role="navigation" aria-label="Primary">
+        <a class="logo" href="index.html">☁️ Peace Of Mind</a>
+        <nav class="nav">
+            <a class="nav-link" href="support.html">Support</a>
+            <a class="nav-link" href="reflect.html">Reflect</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="card">
+            <h1 class="title">How do you want to feel today?</h1>
+            <p class="subtitle">
+                A gentle space for grounding and reflection. Your notes stay private on your device.
+            </p>
+
+            <div class="choices" role="group" aria-label="Primary actions">
+                <button class="choice choice-support" id="supportBtn" aria-label="Go to Support">
+                    <span class="emoji" aria-hidden="true">🫧</span>
+                    <span class="text">
+                        <strong>Support</strong>
+                        <em>grounding · breathing · 5-4-3-2-1</em>
+                    </span>
+                    <span class="arrow" aria-hidden="true">→</span>
+                </button>
+
+                <button class="choice choice-reflect" id="reflectBtn" aria-label="Go to Reflect">
+                    <span class="emoji" aria-hidden="true">🪴</span>
+                    <span class="text">
+                        <strong>Reflect</strong>
+                        <em>triage · diary · worry window</em>
+                    </span>
+                    <span class="arrow" aria-hidden="true">→</span>
+                </button>
+            </div>
+
+            <div class="mini">
+                <button class="pill" id="resumeBtn" aria-label="Resume last place">↺ Resume last place</button>
+                <span class="hint">Press <kbd>S</kbd> for Support or <kbd>R</kbd> for Reflect</span>
+            </div>
+        </section>
+
+        <footer class="foot">
+            <small>Palette · <span class="sw sw1">#133C55</span> <span class="sw sw2">#386FA4</span> <span
+                    class="sw sw3">#59A5D8</span> <span class="sw sw4">#84D2F6</span> <span
+                    class="sw sw5">#91E5F6</span></small>
+        </footer>
     </main>
 
     <script src="js/script.js"></script>
