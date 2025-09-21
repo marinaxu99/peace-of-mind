@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Luckiest+Guy&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap');
+
 /* ---------- Palette ---------- */
 :root {
     --ink: #0f2533;
@@ -16,6 +18,11 @@
     /* glass card */
     --shadow: 0 20px 60px rgba(19, 60, 85, .18);
     --radius: 22px;
+    --glass-bg: rgba(255, 255, 255, 0.22);
+    --glass-border: rgba(255, 255, 255, 0.65);
+    --glass-inner: rgba(255, 255, 255, 0.18);
+    /* subtle inner glow */
+    --glass-shadow-strong: 0 24px 80px rgba(19, 60, 85, 0.25), 0 2px 6px rgba(19, 60, 85, 0.06);
 }
 
 /* ---------- Base ---------- */
@@ -28,13 +35,43 @@ body {
     height: 100%
 }
 
+.logo p {
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2rem;
+}
+
+h1 {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <700>;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     color: var(--ink);
-    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     -webkit-font-smoothing: antialiased;
     background: linear-gradient(160deg, var(--p5), var(--p4));
     overflow-x: hidden;
+}
+
+p {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+button,
+a {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: .8rem;
 }
 
 /* Background ornaments */
@@ -102,7 +139,9 @@ body {
     padding: 16px 20px;
     position: sticky;
     top: 0;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: linear-gradient(to bottom, rgba(19, 60, 85, 0.06), rgba(19, 60, 85, 0.00));
 }
 
 .logo {
@@ -120,17 +159,27 @@ body {
 }
 
 .nav-link {
-    color: #ffffffde;
+    color: var(--ink);
+    /* darker ink color */
+    font-weight: 600;
     text-decoration: none;
-    padding: 8px 12px;
+    padding: 8px 14px;
     border-radius: 12px;
+
+    /* glass button look */
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(6px);
-    transition: background .2s ease, transform .1s ease;
+    -webkit-backdrop-filter: blur(6px);
+
+    transition: background .2s ease, transform .1s ease, color .2s ease;
 }
 
 .nav-link:hover {
-    background: rgba(255, 255, 255, .12);
-    transform: translateY(-1px)
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    color: var(--p1);
+    /* deep navy on hover for clarity */
 }
 
 /* ---------- Shell ---------- */
@@ -141,15 +190,82 @@ body {
     padding: 24px 16px;
 }
 
-/* ---------- Card ---------- */
+/* ---------- Card (clean liquid glass) ---------- */
 .card {
     width: min(980px, 96vw);
-    background: var(--card);
-    border: 1px solid rgba(255, 255, 255, .35);
+    position: relative;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     padding: clamp(22px, 4vw, 44px);
-    backdrop-filter: blur(10px);
+
+    /* cleaner, non-glare glass */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.20));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow-strong);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+
+    /* prevent blending from ancestors */
+    isolation: isolate;
+}
+
+/* subtle, static edge polish (no animation) */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+        inset 0 1px 0 var(--glass-inner),
+        /* top inner highlight */
+        inset 0 -1px 0 rgba(255, 255, 255, 0.10);
+    /* bottom inner line */
+}
+
+/* Fallback for no backdrop-filter */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .card {
+        background: rgba(255, 255, 255, 0.92);
+    }
+}
+
+/* optional moving glare for a “liquid” feel; very subtle */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    /* bleed slightly to avoid hard edge */
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 60% at -10% -10%,
+            rgba(255, 255, 255, 0.22) 0%,
+            rgba(255, 255, 255, 0.12) 25%,
+            rgba(255, 255, 255, 0.06) 45%,
+            rgba(255, 255, 255, 0) 60%);
+    opacity: 0.7;
+    mix-blend-mode: screen;
+    animation: glassGlare 14s ease-in-out infinite alternate;
+}
+
+@keyframes glassGlare {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0.001deg);
+    }
+
+    100% {
+        transform: translate3d(4%, 2%, 0) rotate(0.001deg);
+    }
+}
+
+/* Fallback when backdrop-filter isn’t available: make the card more opaque */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .card {
+        background: rgba(255, 255, 255, 0.86);
+    }
+
+    .card::before {
+        display: none;
+    }
 }
 
 .title {
@@ -178,15 +294,18 @@ body {
 }
 
 .choice {
-    border: 1px solid rgba(19, 60, 85, .06);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, .7));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.88));
+    border: 1px solid rgba(19, 60, 85, 0.08);
+    backdrop-filter: blur(3px);
+    /* light touch only */
+    -webkit-backdrop-filter: blur(3px);
+    box-shadow: 0 6px 20px rgba(19, 60, 85, 0.10);
     border-radius: 18px;
     padding: 18px 16px;
     display: flex;
     align-items: center;
     gap: 14px;
     cursor: pointer;
-    box-shadow: 0 10px 28px rgba(19, 60, 85, .10);
     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 
@@ -203,11 +322,11 @@ body {
 }
 
 .choice-support {
-    background: linear-gradient(180deg, rgba(145, 229, 246, .55), rgba(132, 210, 246, .35))
+    background: linear-gradient(180deg, rgba(132, 210, 246, .95), rgba(89, 165, 216, .1))
 }
 
 .choice-reflect {
-    background: linear-gradient(180deg, rgba(132, 210, 246, .55), rgba(89, 165, 216, .35))
+    background: linear-gradient(180deg, rgba(132, 210, 246, .95), rgba(89, 165, 216, .1))
 }
 
 .choice .emoji {
@@ -217,7 +336,7 @@ body {
     height: 44px;
     display: grid;
     place-items: center;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     box-shadow: inset 0 0 0 1px rgba(19, 60, 85, .06);
 }
@@ -257,7 +376,7 @@ body {
     appearance: none;
     border: none;
     cursor: pointer;
-    background: linear-gradient(90deg, var(--p2), var(--p3));
+    background: linear-gradient(45deg, var(--p2), var(--p3));
     color: #fff;
     padding: 10px 14px;
     border-radius: 999px;
@@ -322,6 +441,24 @@ kbd {
 .sw5 {
     color: #0b2a3a;
     background: #91E5F6
+}
+
+.blob {
+    opacity: 0.45;
+}
+
+/* was 0.55 */
+.grain {
+    opacity: 0.06;
+}
+
+.blob {
+    opacity: 0.45;
+}
+
+/* was 0.55 */
+.grain {
+    opacity: 0.06;
 }
 
 /* ---------- Motion preferences ---------- */
